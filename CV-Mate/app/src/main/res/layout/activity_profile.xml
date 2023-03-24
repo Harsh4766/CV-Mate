@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="-70dp"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:elevation="30dp"
+            app:cardCornerRadius="500dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_e"></ImageView>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile"
+            android:elevation="10dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"></ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:text="Elizabeth Olsen"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"></TextView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#1B64E3"
+        android:layout_marginTop="2dp"
+        android:text="elizabetholsen11@gmail.com"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@+id/textView"></TextView>
+
+
+    <ScrollView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:text="Personal Details"
+                        android:textStyle="bold"
+                        android:textSize="19dp"
+                        android:drawableEnd=""
+                        android:padding="6dp"></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="Phone \n - +91 99999 99999"
+                        ></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="Date of Birth\n - 01/01/2023"
+                        ></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="Hobbies \n - "
+                        ></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="Description \n - "
+                        ></TextView>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"></Space>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:text="Profession"
+                        android:textStyle="bold"
+                        android:textSize="19dp"
+                        android:drawableEnd=""
+                        android:padding="6dp"></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="Eduction\n - BE in Information Technology"
+                        ></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="College\n - L.D. college of engineering"
+                        ></TextView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"></Space>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:paddingStart="6dp"
+                        android:textSize="17dp"
+                        android:text="Extra Course\n - "
+                        ></TextView>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
