@@ -316,7 +316,7 @@
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                         android:padding="6dp"
-                        android:text="Achievement"
+                        android:text="Achievements"
                         android:textColor="#EB8E00"
                         android:textSize="19dp"
                         android:textStyle="bold"></TextView>
