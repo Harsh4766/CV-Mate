@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class Profile extends AppCompatActivity {
 
     TextView personalDetail;
-    Dialog personalDetailDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +19,14 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         personalDetail = findViewById(R.id.profile_personal_detail);
+        Dialog dialog=new Dialog(Profile.this);
 
         personalDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                personalDetailDialog.setContentView(R.layout.personal_detail_popup);
-                personalDetailDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setContentView(R.layout.personal_detail_popup);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.show();
             }
         });
 
