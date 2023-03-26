@@ -108,9 +108,9 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/profile_personal_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd=""
                         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                         android:padding="6dp"
                         android:text="Personal Details"
@@ -179,9 +179,9 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/profile_profession"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd=""
                         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                         android:padding="6dp"
                         android:text="Profession"
@@ -239,7 +239,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd=""
                         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                         android:padding="6dp"
                         android:text="Skills"
@@ -278,7 +277,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd=""
                         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                         android:padding="6dp"
                         android:text="Job Experience"
@@ -316,7 +314,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd=""
                         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                         android:padding="6dp"
                         android:text="Achievement"
