@@ -143,7 +143,7 @@
             android:textSize="16dp"></TextView>
 
         <TextView
-            android:id="@+id/sign_login_in_button"
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Log In"
