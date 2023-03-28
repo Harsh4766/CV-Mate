@@ -24,10 +24,13 @@ public class Profile extends AppCompatActivity {
         jobexp = findViewById(R.id.profile_jobexp);
         achievements = findViewById(R.id.profile_achievements);
 
+        DialogMenus();
 
+    }
 
+    private void DialogMenus()
+    {
         Dialog dialog=new Dialog(Profile.this);
-
         personalDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +75,5 @@ public class Profile extends AppCompatActivity {
                 dialog.show();
             }
         });
-
     }
 }
