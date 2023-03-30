@@ -93,7 +93,7 @@
                 app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/person_dob"
+                    android:id="@+id/personal_dob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
@@ -112,7 +112,7 @@
                 app:startIconDrawable="@drawable/ic_baseline_collections_bookmark_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/person_hobbies"
+                    android:id="@+id/personal_hobbies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -131,7 +131,7 @@
                 app:startIconDrawable="@drawable/ic_baseline_description_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/person_description"
+                    android:id="@+id/personal_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"

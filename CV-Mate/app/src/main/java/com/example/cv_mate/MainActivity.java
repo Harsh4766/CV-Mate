@@ -19,6 +19,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatButton signIn;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         signIn = findViewById(R.id.sign_in);
         mAuth = FirebaseAuth.getInstance();
         userNameTextView = findViewById(R.id.sign_in_full_name);
-
+        db = FirebaseDatabase.getInstance();
         LoginPage();
         SignIn();
         AutoLogin();
@@ -77,8 +81,24 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Toast.makeText(MainActivity.this, "Register Successful!", Toast.LENGTH_SHORT).show();
-                    ProfilePage();
+
+                    HashMap<String,String> data = new HashMap();
+                    data.put("Username",userNameTextView.getText().toString());
+                    data.put("Email",email);
+
+                    db.getReference().child("User").child(mAuth.getCurrentUser().getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Register Successful!", Toast.LENGTH_SHORT).show();
+                                ProfilePage();
+                            } else
+                            {
+                                Toast.makeText(MainActivity.this, "error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 }
                 else
                 {
