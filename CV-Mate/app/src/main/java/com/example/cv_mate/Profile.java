@@ -208,6 +208,7 @@ public class Profile extends AppCompatActivity {
                 if (TextUtils.isEmpty(phone.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your Phone Number", Toast.LENGTH_SHORT).show();
                     return;
+
                 }
                 if (TextUtils.isEmpty(dob.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your Date of Birth", Toast.LENGTH_SHORT).show();

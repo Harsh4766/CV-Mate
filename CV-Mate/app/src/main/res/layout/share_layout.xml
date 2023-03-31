@@ -39,7 +39,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/imageView3"
+                    android:id="@+id/share_image"
                     android:scaleType="centerCrop"
                     android:src="@drawable/profile_e"></ImageView>
 
@@ -56,7 +56,7 @@
             tools:ignore="MissingConstraints">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/share_fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout"></TextView>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/share_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -88,7 +88,6 @@
             android:id="@+id/share_button"
             android:layout_width="80dp"
             android:layout_height="40dp"
-
             android:layout_gravity="center"
             android:background="@drawable/custombutton"
             android:drawableEnd="@drawable/right_icon"
