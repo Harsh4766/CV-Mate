@@ -37,8 +37,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/profile"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile_e"></ImageView>
+                android:src="@drawable/logo"></ImageView>
 
         </androidx.cardview.widget.CardView>
 
@@ -48,6 +49,7 @@
             android:background="@drawable/profile"
             android:elevation="10dp"
             android:padding="4dp"
+            android:id="@+id/plus"
             android:src="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"></ImageView>

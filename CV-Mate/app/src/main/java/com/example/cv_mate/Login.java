@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,9 @@ public class Login extends AppCompatActivity {
     TextView signin;
     private TextInputEditText emailTextView, passwordTextView;
 
-    private AppCompatButton login;
+    ProgressBar progressBar;
+    private TextView login;
+    boolean flag=false;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,7 +36,7 @@ public class Login extends AppCompatActivity {
         signin = findViewById(R.id.signin);
         emailTextView = findViewById(R.id.login_email);
         passwordTextView =findViewById(R.id.login_password);
-        login = findViewById(R.id.login_button);
+        login = findViewById(R.id.logsub);
         mAuth = FirebaseAuth.getInstance();
 
         Login();
@@ -65,6 +68,9 @@ public class Login extends AppCompatActivity {
                     ProfilePage();
                 }
                 else {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    login.setText("LOG IN");
+                    flag=false;
                     Toast.makeText(Login.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -76,7 +82,12 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUserAccount();
+                if(flag==false) {
+                    login.setText("Please wait");
+                    progressBar.setVisibility(View.VISIBLE);
+                   loginUserAccount();
+                    flag=true;
+                }
             }
         });
     }

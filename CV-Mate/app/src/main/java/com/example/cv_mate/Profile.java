@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class Profile extends AppCompatActivity {
     AppCompatButton personalSubmitButton, professionSubmitButton, skillSubmitButton, jobSubmitButton, achieveSubmitButton;
     FirebaseAuth mAuth;
     DatabaseReference db;
+    ImageView profile,plus;
     TextView profileEmail,profileName,profilePhone,profileDob,profileHobbies,profileDescription,profileEducation,profileCollege,profileExtra,profileSkills,profileFresher,profileAchievements;
 
     @Override
@@ -60,6 +62,8 @@ public class Profile extends AppCompatActivity {
         profileSkills = findViewById(R.id.profile_page_mainSkills);
         profileFresher = findViewById(R.id.profile_page_job_xp);
         profileAchievements = findViewById(R.id.profile_page_achievement);
+        profile=findViewById(R.id.profile);
+        plus=findViewById(R.id.plus);
 
         DialogMenus();
 

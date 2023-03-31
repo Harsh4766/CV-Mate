@@ -106,18 +106,47 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sign_in"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="30dp"
+
+        <RelativeLayout
             android:background="@drawable/custombutton"
-            android:drawableEnd="@drawable/right_icon"
-            android:padding="10dp"
-            android:text="Sign in"
-            android:textColor="@color/white"></androidx.appcompat.widget.AppCompatButton>
+            android:layout_width="130dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end"
+            android:layout_height="50dp"
+            android:layout_marginLeft="115dp"
+            android:layout_marginTop="40dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <ProgressBar
+                    android:layout_marginStart="10dp"
+                    android:visibility="gone"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Progressbar"
+                    android:layout_toLeftOf="@+id/signsub"
+                    android:layout_centerVertical="true"
+
+                    ></ProgressBar>
+
+                <TextView
+                    android:id="@+id/signsub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:drawableEnd="@drawable/right_icon"
+                    android:text="SIGN IN"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:paddingEnd="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="10dp">
+
+                </TextView>
+            </LinearLayout>
+        </RelativeLayout>
 
         <Space
             android:layout_width="match_parent"
