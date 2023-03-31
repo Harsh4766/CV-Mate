@@ -22,9 +22,9 @@ import java.util.HashMap;
 
 public class Profile extends AppCompatActivity {
 
-    TextView personalDetail,profession,skills,jobexp,achievements;
-    TextInputEditText phone,dob,hobbies,description;
-    AppCompatButton personalSubmitButton;
+    TextView personalDetail, profession, skills, jobexp, achievements;
+    TextInputEditText phone, dob, hobbies, description, education, college, extra_course, title, s_description, experience, achievement;
+    AppCompatButton personalSubmitButton, professionSubmitButton, skillSubmitButton, jobSubmitButton, achieveSubmitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,8 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    private void DialogMenus()
-    {
-        Dialog dialog=new Dialog(Profile.this);
+    private void DialogMenus() {
+        Dialog dialog = new Dialog(Profile.this);
         personalDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,17 +52,23 @@ public class Profile extends AppCompatActivity {
                 hobbies = dialog.findViewById(R.id.personal_hobbies);
                 description = dialog.findViewById(R.id.personal_description);
                 personalSubmitButton = dialog.findViewById(R.id.personal_submit);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 personalDetails();
                 dialog.show();
             }
         });
 
+
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.setContentView(R.layout.profession_popup);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                education = dialog.findViewById(R.id.edu);
+                college = dialog.findViewById(R.id.college);
+                extra_course = dialog.findViewById(R.id.extra_course);
+                professionSubmitButton = dialog.findViewById(R.id.pro_submit);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                professionDetails();
                 dialog.show();
             }
         });
@@ -72,7 +77,11 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.setContentView(R.layout.skills_popup);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                title = dialog.findViewById(R.id.skill_title);
+                s_description = dialog.findViewById(R.id.skills_desc);
+                skillSubmitButton = dialog.findViewById(R.id.skills_submit);
+                skillDetails();
                 dialog.show();
             }
         });
@@ -81,7 +90,10 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.setContentView(R.layout.job_exp_popup);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                experience = dialog.findViewById(R.id.exp);
+                jobSubmitButton = dialog.findViewById(R.id.job_exp_submit);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                jobExpDetails();
                 dialog.show();
             }
         });
@@ -90,53 +102,167 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.setContentView(R.layout.achievements_popup);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                achievement = dialog.findViewById(R.id.achieve);
+                achieveSubmitButton = dialog.findViewById(R.id.achieve_submit);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                achievementsDetails();
                 dialog.show();
             }
         });
     }
 
-    private void personalDetails()
-    {
+    private void personalDetails() {
         personalSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(phone.getText()))
-                {
+                if (TextUtils.isEmpty(phone.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your Phone Number", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(dob.getText()))
-                {
+                if (TextUtils.isEmpty(dob.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your Date of Birth", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(hobbies.getText()))
-                {
+                if (TextUtils.isEmpty(hobbies.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your hobbies", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(description.getText()))
-                {
+                if (TextUtils.isEmpty(description.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your description", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                HashMap<String,Object> data = new HashMap<>();
-                data.put("phone",phone.getText().toString());
-                data.put("dob",dob.getText().toString());
-                data.put("hobbies",hobbies.getText().toString());
-                data.put("description",description.getText().toString());
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("phone", phone.getText().toString());
+                data.put("dob", dob.getText().toString());
+                data.put("hobbies", hobbies.getText().toString());
+                data.put("description", description.getText().toString());
 
                 FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             Toast.makeText(Profile.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Profile.this, "error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        else
-                        {
+                    }
+                });
+            }
+        });
+    }
+
+
+    private void professionDetails() {
+        professionSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(education.getText())) {
+                    Toast.makeText(Profile.this, "Please Enter Your Education details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(college.getText())) {
+                    Toast.makeText(Profile.this, "Please Enter Your College name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("Education", education.getText().toString());
+                data.put("College", college.getText().toString());
+                data.put("Extra course", extra_course.getText().toString());
+
+                FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Profile.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Profile.this, "error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    private void skillDetails() {
+        skillSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(title.getText())) {
+                    Toast.makeText(Profile.this, "Please Enter Your Skill title", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(s_description.getText())) {
+                    Toast.makeText(Profile.this, "Please Enter Your Skill description", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("Title", title.getText().toString());
+                data.put("Description", s_description.getText().toString());
+
+                FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Profile.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Profile.this, "error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void jobExpDetails() {
+        jobSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(experience.getText())) {
+                    Toast.makeText(Profile.this, "Please Enter Your Job experience", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("Experience", jobexp.getText().toString());
+
+                FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Profile.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Profile.this, "error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void achievementsDetails() {
+        achievements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(achievement.getText())) {
+                    Toast.makeText(Profile.this, "Please Enter Your Achievements details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("Achievements", achievement.getText().toString());
+
+                FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Profile.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
+                        } else {
                             Toast.makeText(Profile.this, "error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -145,3 +271,5 @@ public class Profile extends AppCompatActivity {
         });
     }
 }
+
+

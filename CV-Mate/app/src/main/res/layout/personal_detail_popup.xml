@@ -115,7 +115,7 @@
                     android:id="@+id/personal_hobbies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     android:textStyle="bold" />
@@ -134,7 +134,7 @@
                     android:id="@+id/personal_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     android:textStyle="bold" />

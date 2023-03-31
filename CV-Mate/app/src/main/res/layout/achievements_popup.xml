@@ -75,7 +75,7 @@
                     android:id="@+id/achieve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:maxLength="10"
                     android:textColor="@color/black"
                     android:textSize="15dp"
