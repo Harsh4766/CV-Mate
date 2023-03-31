@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -25,6 +30,9 @@ public class Profile extends AppCompatActivity {
     TextView personalDetail, profession, skills, jobexp, achievements;
     TextInputEditText phone, dob, hobbies, description, education, college, extra_course, title, s_description, experience, achievement;
     AppCompatButton personalSubmitButton, professionSubmitButton, skillSubmitButton, jobSubmitButton, achieveSubmitButton;
+    FirebaseAuth mAuth;
+    DatabaseReference db;
+    TextView profilePhone,profileDob,profileHobbies,profileDescription,profileEducation,profileCollege,profileExtra,profileSkills,profileFresher,profileAchievements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +45,49 @@ public class Profile extends AppCompatActivity {
         jobexp = findViewById(R.id.profile_jobexp);
         achievements = findViewById(R.id.profile_achievements);
 
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference().child("User");
+
+        profilePhone = findViewById(R.id.profile_page_phoneNumber);
+        profileDob = findViewById(R.id.profile_page_dob);
+        profileHobbies = findViewById(R.id.profile_page_hobbies);
+        profileDescription = findViewById(R.id.profile_page_description);
+        profileEducation = findViewById(R.id.profile_page_eduction);
+        profileCollege = findViewById(R.id.profile_page_college);
+        profileExtra = findViewById(R.id.profile_page_extraCourse);
+        profileSkills = findViewById(R.id.profile_page_mainSkills);
+        profileFresher = findViewById(R.id.profile_page_job_xp);
+        profileAchievements = findViewById(R.id.profile_page_achievement);
+
         DialogMenus();
 
+        FetchData();
+    }
+
+    private void FetchData()
+    {
+        db.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren())
+                {
+                    if(snapshot1.getKey().toString().equals("FullName"))
+                    {
+                        
+                    }
+                    else
+                    if(snapshot1.getKey().toString().equals("phoneNumber"))
+                    {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void DialogMenus() {
