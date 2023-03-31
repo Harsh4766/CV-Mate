@@ -170,7 +170,7 @@ public class Profile extends AppCompatActivity {
                 HashMap<String, Object> data = new HashMap<>();
                 data.put("Education", education.getText().toString());
                 data.put("College", college.getText().toString());
-                data.put("Extra course", extra_course.getText().toString());
+                data.put("Extra_course", extra_course.getText().toString());
 
                 FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
