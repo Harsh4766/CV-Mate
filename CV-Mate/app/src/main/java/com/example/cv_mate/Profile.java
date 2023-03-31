@@ -75,7 +75,7 @@ public class Profile extends AppCompatActivity {
                 {
                     if(snapshot1.getKey().toString().equals("phone"))
                     {
-                        profilePhone.setText("Phone \n - " +""+snapshot1.getValue().toString());
+                        profilePhone.setText("Phone \n - "+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("Email"))
                     {
@@ -87,27 +87,27 @@ public class Profile extends AppCompatActivity {
                     }
                     else if(snapshot1.getKey().toString().equals("dob"))
                     {
-                        profileDob.setText(snapshot1.getValue().toString());
+                        profileDob.setText("Date Of Birth \n - "+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("hobbies"))
                     {
-                        profileHobbies.setText(snapshot1.getValue().toString());
+                        profileHobbies.setText("Hobbies \n - "+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("description"))
                     {
-                        profileDescription.setText(snapshot1.getValue().toString());
+                        profileDescription.setText("Description  \n -"+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("Education"))
                     {
-                        profileEducation.setText(snapshot1.getValue().toString());
+                        profileEducation.setText("Education  \n - "+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("College"))
                     {
-                        profileCollege.setText(snapshot1.getValue().toString());
+                        profileCollege.setText("College  \n -"+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("Extra_course"))
                     {
-                        profileExtra.setText(snapshot1.getValue().toString());
+                        profileExtra.setText("Extra Course  \n -"+snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("Skills"))
                     {
