@@ -32,7 +32,7 @@ public class Profile extends AppCompatActivity {
     AppCompatButton personalSubmitButton, professionSubmitButton, skillSubmitButton, jobSubmitButton, achieveSubmitButton;
     FirebaseAuth mAuth;
     DatabaseReference db;
-    TextView profilePhone,profileDob,profileHobbies,profileDescription,profileEducation,profileCollege,profileExtra,profileSkills,profileFresher,profileAchievements;
+    TextView profileEmail,profileName,profilePhone,profileDob,profileHobbies,profileDescription,profileEducation,profileCollege,profileExtra,profileSkills,profileFresher,profileAchievements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,8 @@ public class Profile extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference().child("User");
 
         profilePhone = findViewById(R.id.profile_page_phoneNumber);
+        profileName=findViewById(R.id.profile_page_name);
+        profileEmail=findViewById(R.id.profile_page_email);
         profileDob = findViewById(R.id.profile_page_dob);
         profileHobbies = findViewById(R.id.profile_page_hobbies);
         profileDescription = findViewById(R.id.profile_page_description);
@@ -71,14 +73,53 @@ public class Profile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren())
                 {
-                    if(snapshot1.getKey().toString().equals("FullName"))
+                    if(snapshot1.getKey().toString().equals("phone"))
                     {
-                        
+                        profilePhone.setText("Phone \n - " +""+snapshot1.getValue().toString());
                     }
-                    else
-                    if(snapshot1.getKey().toString().equals("phoneNumber"))
+                    else if(snapshot1.getKey().toString().equals("Email"))
                     {
-
+                        profileEmail.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("Username"))
+                    {
+                        profileName.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("dob"))
+                    {
+                        profileDob.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("hobbies"))
+                    {
+                        profileHobbies.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("description"))
+                    {
+                        profileDescription.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("Education"))
+                    {
+                        profileEducation.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("College"))
+                    {
+                        profileCollege.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("Extra_course"))
+                    {
+                        profileExtra.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("Skills"))
+                    {
+                        profileSkills.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("Experience"))
+                    {
+                        profileFresher.setText(snapshot1.getValue().toString());
+                    }
+                    else if(snapshot1.getKey().toString().equals("Achievements"))
+                    {
+                        profileAchievements.setText(snapshot1.getValue().toString());
                     }
                 }
             }
@@ -250,8 +291,7 @@ public class Profile extends AppCompatActivity {
                 }
 
                 HashMap<String, Object> data = new HashMap<>();
-                data.put("Title", title.getText().toString());
-                data.put("Description", s_description.getText().toString());
+                data.put("Skills", title.getText().toString() + "\n - " + s_description.getText().toString());
 
                 FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
