@@ -50,7 +50,6 @@
                 </androidx.cardview.widget.CardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,27 +59,57 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"></TextView>
+            
 
+
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginHorizontal="20dp"
+
+           android:text="Select Achievments"
+             android:gravity="center"
+             android:layout_gravity="center"
+             android:textStyle="bold"
+            android:textSize="20dp"
+             android:layout_marginTop="20dp">
+
+
+         </TextView>
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_list"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
+
+
+            </Spinner>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:hint="Achievements"
-                app:counterMaxLength="10"
-                app:startIconDrawable="@drawable/ic_baseline_flag_24">
+                android:layout_marginTop="10dp"
+                android:hint="Achivement  description"
+                app:startIconDrawable="@drawable/ic_baseline_description_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/achieve"
+                    android:id="@+id/acvmnt_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:maxLength="10"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
 
 
 

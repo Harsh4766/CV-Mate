@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,9 +14,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +53,11 @@ import java.util.UUID;
 public class Profile extends AppCompatActivity {
 
     TextView personalDetail, profession, skills, jobexp, achievements;
-    TextInputEditText phone, dob, hobbies, description, education, college, extra_course, title, s_description, experience, achievement;
+    String[] list = {"Sports","Cultural","Technical","Academic"};
+    AppCompatButton  add;
+    Spinner spinner;
+    String value;
+    TextInputEditText phone, dob, hobbies, description, education, college, extra_course, title, s_description, experience, achievement,des;
     AppCompatButton personalSubmitButton, professionSubmitButton, skillSubmitButton, jobSubmitButton, achieveSubmitButton;
     FirebaseAuth mAuth;
     DatabaseReference db;
@@ -57,6 +67,7 @@ public class Profile extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +81,6 @@ public class Profile extends AppCompatActivity {
 
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
-
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference().child("User");
@@ -304,13 +314,37 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.setContentView(R.layout.achievements_popup);
-                achievement = dialog.findViewById(R.id.achieve);
+                spinner = dialog.findViewById(R.id.spinner_list);
+                des = dialog.findViewById(R.id.acvmnt_desc);
+
+                    ArrayAdapter<String>adapter = new ArrayAdapter<String>(Profile.this, R.layout.item_file,list);
+                    adapter.setDropDownViewResource(R.layout.item_file);
+
+                    spinner.setAdapter(adapter);
+
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            value =adapterView.getItemAtPosition(i).toString();
+                            Toast.makeText(Profile.this,value,Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
                 achieveSubmitButton = dialog.findViewById(R.id.achieve_submit);
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 achievementsDetails();
                 dialog.show();
+
             }
+
+
         });
+
     }
 
     private void personalDetails() {
@@ -430,7 +464,7 @@ public class Profile extends AppCompatActivity {
                 }
 
                 HashMap<String, Object> data = new HashMap<>();
-                data.put("Experience", jobexp.getText().toString());
+                data.put("Experience", experience.getText().toString());
 
                 FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -450,15 +484,20 @@ public class Profile extends AppCompatActivity {
         achieveSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(achievement.getText())) {
+                if (TextUtils.isEmpty(value)) {
+                    Toast.makeText(Profile.this, "Please Enter Your Achievements details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(des.getText().toString())) {
                     Toast.makeText(Profile.this, "Please Enter Your Achievements details", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 HashMap<String, Object> data = new HashMap<>();
-                data.put("Achievements", achievement.getText().toString());
+                data.put("title", value);
+                data.put("description",des.getText().toString());
 
-                FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseDatabase.getInstance().getReference().child("Achievements").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
