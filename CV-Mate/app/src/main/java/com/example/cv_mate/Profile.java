@@ -339,14 +339,13 @@ public class Profile extends AppCompatActivity {
     }
 
     private void achievementsDetails() {
-        achievements.setOnClickListener(new View.OnClickListener() {
+        achieveSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(achievement.getText())) {
                     Toast.makeText(Profile.this, "Please Enter Your Achievements details", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
                 HashMap<String, Object> data = new HashMap<>();
                 data.put("Achievements", achievement.getText().toString());
