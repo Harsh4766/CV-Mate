@@ -1,21 +1,30 @@
 package com.example.cv_mate;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +32,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Profile extends AppCompatActivity {
 
@@ -35,6 +53,9 @@ public class Profile extends AppCompatActivity {
     DatabaseReference db;
     ImageView profile,plus;
     TextView profileEmail,profileName,profilePhone,profileDob,profileHobbies,profileDescription,profileEducation,profileCollege,profileExtra,profileSkills,profileFresher,profileAchievements;
+    public Uri imageuri;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +67,10 @@ public class Profile extends AppCompatActivity {
         skills = findViewById(R.id.profile_skills);
         jobexp = findViewById(R.id.profile_jobexp);
         achievements = findViewById(R.id.profile_achievements);
+
+        storage=FirebaseStorage.getInstance();
+        storageReference=storage.getReference();
+
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference().child("User");
@@ -64,11 +89,89 @@ public class Profile extends AppCompatActivity {
         profileAchievements = findViewById(R.id.profile_page_achievement);
         profile=findViewById(R.id.profile);
         plus=findViewById(R.id.plus);
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePicture();
+            }
+        });
 
         DialogMenus();
 
         FetchData();
     }
+
+    private void choosePicture()
+    {
+        Intent i=new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(i,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null)
+        {
+            imageuri=data.getData();
+            profile.setImageURI(imageuri);
+            uploadPicture();
+        }
+    }
+
+    private void uploadPicture()
+    {
+        final ProgressDialog pd=new ProgressDialog(this);
+        pd.setTitle("Uploading Image...");
+        pd.show();
+
+        final String randomKey= UUID.randomUUID().toString();
+        StorageReference ref=storageReference.child("images/"+randomKey);
+
+        ref.putFile(imageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        HashMap<String,Object> data = new HashMap<>();
+                        data.put("imageUrl",uri.toString());
+                        db.child(mAuth.getCurrentUser().getUid()).updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                {
+                                    pd.dismiss();
+                                    Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    pd.dismiss();
+                                }
+                            }
+                        });
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_LONG).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progressPercent=(100.00 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                pd.setMessage("Progress "+(int) progressPercent+"%");
+            }
+        });
+
+    }
+
+
 
     private void FetchData()
     {
@@ -77,9 +180,14 @@ public class Profile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren())
                 {
+                    if(snapshot1.getKey().toString().equals("imageUrl"))
+                    {
+                        Glide.with(getApplicationContext()).load(snapshot1.getValue().toString()).into(profile);
+                    }
+                    else
                     if(snapshot1.getKey().toString().equals("phone"))
                     {
-                        profilePhone.setText("Phone \n - "+snapshot1.getValue().toString());
+                        profilePhone.setText("Phone \n - " + snapshot1.getValue().toString());
                     }
                     else if(snapshot1.getKey().toString().equals("Email"))
                     {
