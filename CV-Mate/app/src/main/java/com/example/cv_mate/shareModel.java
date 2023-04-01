@@ -2,28 +2,40 @@ package com.example.cv_mate;
 
 public class shareModel {
 
-    String studentUrl,FullName,Email;
+    String admin_name,imageUrl,Email,userUid;
 
-    public shareModel(String studentUrl, String fullName, String email) {
-        this.studentUrl = studentUrl;
-        FullName = fullName;
-        Email = email;
+    public shareModel(String admin_name, String imageUrl, String email) {
+        this.admin_name = admin_name;
+        this.imageUrl = imageUrl;
+        this.Email = email;
     }
 
-    public String getStudentUrl() {
-        return studentUrl;
+    public shareModel(String userUid) {
+        this.userUid = userUid;
     }
 
-    public void setStudentUrl(String studentUrl) {
-        this.studentUrl = studentUrl;
+    public String getUserUid() {
+        return userUid;
     }
 
-    public String getFullName() {
-        return FullName;
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
     }
 
-    public void setFullName(String fullName) {
-        FullName = fullName;
+    public String getAdmin_name() {
+        return admin_name;
+    }
+
+    public void setAdmin_name(String admin_name) {
+        this.admin_name = admin_name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getEmail() {

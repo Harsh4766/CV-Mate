@@ -61,7 +61,7 @@ public class Profile extends AppCompatActivity {
     AppCompatButton personalSubmitButton, professionSubmitButton, skillSubmitButton, jobSubmitButton, achieveSubmitButton;
     FirebaseAuth mAuth;
     DatabaseReference db;
-    ImageView profile,plus;
+    ImageView profile,plus,sharebtn;
     TextView profileEmail,profileName,profilePhone,profileDob,profileHobbies,profileDescription,profileEducation,profileCollege,profileExtra,profileSkills,profileFresher,profileAchievements;
     public Uri imageuri;
     private FirebaseStorage storage;
@@ -78,6 +78,7 @@ public class Profile extends AppCompatActivity {
         skills = findViewById(R.id.profile_skills);
         jobexp = findViewById(R.id.profile_jobexp);
         achievements = findViewById(R.id.profile_achievements);
+        sharebtn=findViewById(R.id.share);
 
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
@@ -103,6 +104,14 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 choosePicture();
+            }
+        });
+
+        sharebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getApplicationContext(),shareActivity.class);
+                startActivity(i);
             }
         });
 

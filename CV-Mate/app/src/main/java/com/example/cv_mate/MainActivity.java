@@ -22,15 +22,19 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView login,textView;
+    TextView login,textView,faculty;
     ProgressBar progressBar;
     boolean flag=false;
+
 
 
 
@@ -48,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         progressBar=findViewById(R.id.Progressbar);
         textView=findViewById(R.id.signsub);
+        faculty=findViewById(R.id.faculty_signin);
+
+        faculty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MainActivity.this,Signup_Faculty.class);
+                startActivity(i);
+            }
+        });
 
 
         emailTextView = findViewById(R.id.sign_in_email);
@@ -171,7 +184,32 @@ public class MainActivity extends AppCompatActivity {
     {
         if(mAuth.getCurrentUser() != null)
         {
-            ProfilePage();
+            FirebaseDatabase.getInstance().getReference().child("Admin").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snapshot1: snapshot.getChildren())
+                    {
+                        if(snapshot1.getKey().toString().equals(mAuth.getCurrentUser().getUid()))
+                        {
+                            AdminPage();
+                            return;
+                        }
+                    }
+                    ProfilePage();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
+    }
+
+    private void AdminPage() {
+        Intent init = new Intent(getApplicationContext(),facultyActivity.class);
+        startActivity(init);
+        finish();
     }
 }
