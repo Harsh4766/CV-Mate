@@ -18,12 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/prise_back"
-                android:layout_width="30dp"
-                android:padding="4dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_arrow_back_ios_24"></ImageView>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,7 +59,7 @@
         android:layout_marginTop="30dp"
         android:paddingStart="10dp"
         android:textSize="13dp"
-        android:queryHint="Search a Plan, e.g 499"
+        android:queryHint="Search faculty"
         android:background="@drawable/edittextlayout"
         app:layout_constraintTop_toBottomOf="@+id/cardView4"
         tools:layout_editor_absoluteX="10dp"></SearchView>

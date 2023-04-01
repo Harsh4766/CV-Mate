@@ -25,13 +25,6 @@ import java.util.HashMap;
 
 public class shareAdapter extends FirebaseRecyclerAdapter<shareModel,shareAdapter.shareViewHolder> {
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-
     Context context;
     Activity activity;
     FirebaseAuth mAuh;
@@ -45,10 +38,11 @@ public class shareAdapter extends FirebaseRecyclerAdapter<shareModel,shareAdapte
     @Override
     protected void onBindViewHolder(@NonNull shareViewHolder holder, int position, @NonNull shareModel model) {
         Glide.with(context).load(model.getImageUrl()).into(holder.profilePage);
-        HashMap<String,Object> data = new HashMap<>();
-        data.put("useruid",FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+//        HashMap<String,Object> data = new HashMap<>();
+//        data.put("useruid",FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
         holder.fullName.setText(model.getAdmin_name());
         holder.email.setText(model.getEmail());
+/*
         holder.share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +57,7 @@ public class shareAdapter extends FirebaseRecyclerAdapter<shareModel,shareAdapte
                 });
             }
         });
+*/
     }
 
     @NonNull

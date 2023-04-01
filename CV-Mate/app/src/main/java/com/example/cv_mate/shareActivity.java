@@ -20,7 +20,7 @@ public class shareActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
 
-        db = FirebaseDatabase.getInstance().getReference().child("Admin");
+        db = FirebaseDatabase.getInstance().getReference().child("Admin").child("gN733mvQUsTChUq0r0Vzu5BZDE2");
 
         recyclerView = findViewById(R.id.share_activity_recyclerview);
 
@@ -34,18 +34,8 @@ public class shareActivity extends AppCompatActivity {
                 .build();
         adapter = new shareAdapter(options,getApplicationContext(),shareActivity.this);
 
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         adapter.startListening();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
+        recyclerView.setAdapter(adapter);
     }
 }
